@@ -9,7 +9,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="resources/bootstrap.min.css" rel="stylesheet">
         <link href="resources/style.css" rel="stylesheet">
-        <title>Train schedule manager</title>
+        <title>Graph manager</title>
     </head>
     <body>
         <div id="wrap">
@@ -17,42 +17,18 @@
             <div class="container">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title pull-left">Schedule Search</h3>
+                        <h3 class="panel-title pull-left">Graph Search</h3>
                         <div class="clearfix"></div>
                     </div>
                     <div class="panel-body">
-                        <form:form action="searchSchedule" method="post" modelAttribute="schedule">
+                        <form:form action="searchGraph" method="post" modelAttribute="graph">
                             <div class="form-group">
-                                <label for="origin">Origin:</label>
-                                <form:select id="origin" 
-                                             class="form-control"
-                                             path="originId" 
-                                             items="${listStation}" 
-                                             itemValue="id" 
-                                             itemLabel="stationName" />
+                                <label for="name">Name:</label>
+                                <form:input class="form-control" id="name" path="name" />
                             </div>
                             <div class="form-group">
-                                <label for="destination">Destination:</label>
-                                <form:select id="destination"
-                                             class="form-control"
-                                             path="destinationId" 
-                                             items="${listStation}" 
-                                             itemValue="id" 
-                                             itemLabel="stationName" />
-                            </div>
-                            <div class="form-group">
-                                <label for="startTime">Start time: </label>
-                                <form:input id="startTime" 
-                                            class="form-control"
-                                            path="startTime" 
-                                            placeholder="yyyy-MM-dd HH:mm"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="endTime">End time: </label>
-                                <form:input id="endTime" 
-                                            class="form-control"
-                                            path="endTime" 
-                                            placeholder="yyyy-MM-dd HH:mm"/>
+                                <label for="descriptor">Descriptor:</label>
+                                <form:input class="form-control" id="descriptor" path="descriptor" />
                             </div>
                             <div>
                                 <button class="btn btn-default" type="submit">Search</button>

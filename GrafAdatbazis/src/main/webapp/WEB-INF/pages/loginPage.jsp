@@ -28,11 +28,11 @@
 						method='POST'>
 							<div class="form-group">
 								<label for="username">User:</label>
-								<input class="form-control" type='text' name='username' value=''>
+								<input class="form-control" type='text' name='username' id='username' value=''>
 							</div>
 							<div class="form-group">
 								<label for="password">Password:</label>
-								<input class="form-control" type='password' name='password' />
+								<input class="form-control" type='password' name='password' id='password' />
 							</div>
 							<div class="form-group">
 								<input class="btn btn-default" name="submit" type="submit" value="submit" />

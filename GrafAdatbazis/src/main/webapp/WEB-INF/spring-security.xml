@@ -15,13 +15,12 @@
          
         <intercept-url pattern="/" access="permitAll" />
         <intercept-url pattern="/index" access="permitAll"/>
-        <intercept-url pattern="/searchSchedule" access="permitAll" method="POST"/>
+        <intercept-url pattern="/searchGraph" access="permitAll" method="POST"/>
         <intercept-url pattern="/login" access="isAnonymous()" />
         <intercept-url pattern="/logout" access="permitAll" /> 
         <intercept-url pattern="/logoutSuccessful" access="permitAll" /> 
  
         <intercept-url pattern="/user" access="hasRole('ROLE_ADMIN')" />
-        <intercept-url pattern="/station" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/resources/**" access="permitAll" />
         <intercept-url pattern="/**/*" access="isAuthenticated()" />
         <intercept-url pattern="/**/*" access="isAuthenticated()" method="GET"/>

@@ -1,4 +1,4 @@
-package hu.javafw.menetrend2.model;
+package hu.bme.szoftarch.graphdb.model;
 
 /**
  * Helper class for paging attributes.

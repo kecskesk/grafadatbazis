@@ -26,7 +26,7 @@
                             <form:hidden path="id"/>
                             <div class="form-group">
                                 <label for="username">Username:</label>
-                                <form:input class="form-control" id="username" path="username" />
+                                <form:input class="form-control" id="username" path="username" disabled="true" />
                             </div>
                             <div class="form-group">
                                 <label>Role:</label>

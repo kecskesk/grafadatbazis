@@ -9,7 +9,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="resources/bootstrap.min.css" rel="stylesheet">
         <link href="resources/style.css" rel="stylesheet">
-        <title>Train schedule manager</title>
+        <title>Graph manager</title>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
         <script src="http://momentjs.com/downloads/moment.js"></script>
@@ -28,17 +28,15 @@
             }
             
             function loadPage(){
-                var origin = $('#origin').val();
-                var destination = $('#destination').val();
-                var startTime = new Date($('#startTime').val());
-                var endTime = new Date($('#endTime').val());
+                var name = $('#name').val();
+                var descriptor = $('#descriptor').val();
                 var json = {
-                    "schedule" : {"id": "", "originId": origin, "destinationId": destination, "startTime": startTime, "endTime": endTime}, 
+                    "graph" : {"id": "", "name": name, "descriptor": descriptor},
                     "paging" : {"max": max, "first": first}
                 };
 
                 $.ajax({
-                    url: "searchSchedule",
+                    url: "searchGraph",
                     data: JSON.stringify(json),
                     type: "POST",
                     headers: { 
@@ -53,10 +51,8 @@
                         data.forEach(function (entry, index) {
                             respContent += "<tr id='result'>";
                             respContent += "<td>" + (first + index + 1) + "</td>";
-                            respContent += "<td>" + entry.origin.stationName + "</td>";
-                            respContent += "<td>" + entry.destination.stationName + "</td>";
-                            respContent += "<td>" + moment(entry.startTime).format('YYYY-MM-DD HH:mm') + "</td>";
-                            respContent += "<td>" + moment(entry.endTime).format('YYYY-MM-DD HH:mm') + "</td>";
+                            respContent += "<td>" + entry.name + "</td>";
+                            respContent += "<td>" + entry.descriptor + "</td>";
                         });
                         $("#resultPanel").show();
                         $("#result").replaceWith(respContent);
@@ -88,42 +84,18 @@
             <div class="container">
                 <div class="panel panel-primary" id="searchFields">
                     <div class="panel-heading">
-                        <h3 class="panel-title pull-left">Schedule Search</h3>
+                        <h3 class="panel-title pull-left">Graph Search</h3>
                         <div class="clearfix"></div>
                     </div>
                     <div class="panel-body">
-                        <form:form action="searchSchedule" id="searchForm" method="post" modelAttribute="schedule">
+                        <form:form action="searchGraph" id="searchForm" method="post" modelAttribute="graph">
                             <div class="form-group">
-                                <label for="origin">Origin:</label>
-                                <form:select id="origin" 
-                                             class="form-control"
-                                             path="originId" >
-                                    <form:option  value="0">--Select one--</form:option>  
-                                    <form:options items="${listStation}" itemValue="id" itemLabel="stationName" />                         
-                                </form:select>
+                                <label for="name">Name:</label>
+                                <form:input class="form-control" id="name" path="name" />
                             </div>
                             <div class="form-group">
-                                <label for="destination">Destination:</label>
-                                <form:select id="destination"
-                                             class="form-control"
-                                             path="destinationId" >
-                                    <form:option  value="0">--Select one--</form:option>  
-                                    <form:options items="${listStation}" itemValue="id" itemLabel="stationName" />  
-                                </form:select>
-                            </div>
-                            <div class="form-group">
-                                <label for="startTime">Start time: </label>
-                                <form:input id="startTime" 
-                                            class="form-control"
-                                            path="startTime" 
-                                            placeholder="yyyy-MM-dd"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="endTime">End time: </label>
-                                <form:input id="endTime" 
-                                            class="form-control"
-                                            path="endTime" 
-                                            placeholder="yyyy-MM-dd"/>
+                                <label for="descriptor">Descriptor:</label>
+                                <form:input class="form-control" id="descriptor" path="descriptor" />
                             </div>
                             <div>
                                 <button class="btn btn-default" type="submit">Search</button>
@@ -140,10 +112,8 @@
                         <div class="table-responsive">
                             <table class="table" id="parent">
                                 <th>#</th>
-                                <th>Origin</th>
-                                <th>Destination</th>
-                                <th>Start time</th>
-                                <th>End time</th>
+                                <th>Name</th>
+                                <th>Descriptor</th>
                                 <tr id="result">
                                 
                                 </tr>

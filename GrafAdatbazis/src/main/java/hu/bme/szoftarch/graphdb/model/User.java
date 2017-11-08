@@ -1,4 +1,4 @@
-package hu.javafw.menetrend2.model;
+package hu.bme.szoftarch.graphdb.model;
 
 /**
  * User entity, has a name, role and a password.

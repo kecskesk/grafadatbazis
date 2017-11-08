@@ -9,7 +9,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="../resources/bootstrap.min.css" rel="stylesheet">
         <link href="../resources/style.css" rel="stylesheet">
-        <title>New/Edit Station</title>
+        <title>New/Edit Graph</title>
     </head>
     <body>
         <div id="wrap">
@@ -17,18 +17,22 @@
             <div class="container">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title pull-left">New/Edit Station</h3>
+                        <h3 class="panel-title pull-left">New/Edit Graph</h3>
                         <div class="clearfix"></div>
                     </div>
                     <div class="panel-body">
-                        <form:form action="saveStation" method="post" modelAttribute="station">
+                        <form:form action="saveGraph" method="post" modelAttribute="graph">
                             <form:hidden path="id"/>
                             <div class="form-group">
-                                <label for="stationName">Station name:</label>
-                                <form:input class="form-control" id="stationName" path="stationName" />
+                                <label for="name">Name:</label>
+                                <form:input class="form-control" id="name" path="name" />
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-default" type="submit" >Save</button>
+                                <label for="descriptor">Descriptor:</label>
+                                <form:input class="form-control" id="descriptor" path="descriptor" />
+                            </div>
+                            <div>
+                                <button class="btn btn-default" type="submit">Save</button>
                             </div>
                         </form:form>
                     </div>

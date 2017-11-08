@@ -1,19 +1,11 @@
-DROP TABLE IF EXISTS schedule;
-DROP TABLE IF EXISTS station;
+DROP TABLE IF EXISTS graph;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS user_roles;
 
-CREATE TABLE schedule(
+CREATE TABLE graph(
 	ID INT PRIMARY KEY AUTO_INCREMENT, 
-	origin INT,
-	destination INT,
-	start_time DATE,
-	end_time DATE
-);
-
-CREATE TABLE station(
-	ID INT PRIMARY KEY AUTO_INCREMENT,  
-	station_name VARCHAR(255)
+	name VARCHAR(255),
+	descriptor VARCHAR(255)
 );
 
 CREATE TABLE users(
@@ -24,7 +16,9 @@ CREATE TABLE users(
 );
 
 CREATE TABLE user_roles(
-	ID INT PRIMARY KEY AUTO_INCREMENT, 
-	username VARCHAR(255),
-	user_role VARCHAR(255)
+	ID INT PRIMARY KEY AUTO_INCREMENT,
+	username VARCHAR(255) UNIQUE,
+	user_role VARCHAR(255),
+	user_ID INT,
+	foreign key (user_ID) references users(ID)
 );

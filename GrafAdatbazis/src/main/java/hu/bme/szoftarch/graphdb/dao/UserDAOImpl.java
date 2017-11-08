@@ -1,4 +1,4 @@
-package hu.javafw.menetrend2.dao;
+package hu.bme.szoftarch.graphdb.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import hu.bme.szoftarch.graphdb.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,8 +16,6 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
-
-import hu.javafw.menetrend2.model.User;
 
 /**
  * Implementation for the user DAO.
@@ -54,7 +53,7 @@ public class UserDAOImpl implements UserDAO {
 		} else {
 			// insert
 			String sql = "INSERT INTO users (username, enabled, password) VALUES (?, 1, ?)";
-			jdbcTemplate.update(sql, 
+			jdbcTemplate.update(sql,
                     user.getUsername(), 
                     user.getPassword());
 
@@ -81,7 +80,7 @@ public class UserDAOImpl implements UserDAO {
 
 			@Override
 			public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-				User aUser = new User();	
+				User aUser = new User();
 				aUser.setId(rs.getInt("id"));
 				aUser.setUsername(rs.getString("username"));
 				aUser.setPassword(rs.getString("password"));	

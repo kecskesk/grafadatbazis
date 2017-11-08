@@ -1,4 +1,4 @@
-package hu.javafw.menetrend2.controller;
+package hu.bme.szoftarch.graphdb.controller;
 
 import java.security.Principal;
 

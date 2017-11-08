@@ -1,8 +1,8 @@
-package hu.javafw.menetrend2.dao;
+package hu.bme.szoftarch.graphdb.dao;
 
 import java.util.List;
 
-import hu.javafw.menetrend2.model.User;
+import hu.bme.szoftarch.graphdb.model.User;
 
 /**
  * Data access object for User entity
