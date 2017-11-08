@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="navbar-header">
-      <a class="navbar-brand" href="${pageContext.request.contextPath}">Schedule planner</a>
+      <a class="navbar-brand" href="/">Schedule planner</a>
     </div>
 
     <div class="container navbar-collapse">
