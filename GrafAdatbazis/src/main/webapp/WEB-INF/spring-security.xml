@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+    xsi:schemaLocation="http://www.springframework.org/schema/security
+      http://www.springframework.org/schema/security/spring-security-4.0.xsd
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+ 
+     
+    <http use-expressions="true">
+        <csrf disabled="true"/>
+         
+        <intercept-url pattern="/" access="permitAll" />
+        <intercept-url pattern="/index" access="permitAll"/>
+        <intercept-url pattern="/searchSchedule" access="permitAll" method="POST"/>
+        <intercept-url pattern="/login" access="isAnonymous()" />
+        <intercept-url pattern="/logout" access="permitAll" /> 
+        <intercept-url pattern="/logoutSuccessful" access="permitAll" /> 
+ 
+        <intercept-url pattern="/user" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/station" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/resources/**" access="permitAll" />
+        <intercept-url pattern="/**/*" access="isAuthenticated()" />
+        <intercept-url pattern="/**/*" access="isAuthenticated()" method="GET"/>
+        <intercept-url pattern="/**/*" access="isAuthenticated()" method="POST"/>
+ 
+        <access-denied-handler error-page="/403" />
+ 
+        <form-login login-page='/login' login-processing-url="/j_spring_security_check"
+            default-target-url="/index" always-use-default-target="false"
+            authentication-failure-url="/login?error=true" username-parameter="username"
+            password-parameter="password" />
+ 
+        <logout logout-url="/logout" logout-success-url="/logoutSuccessful"
+            delete-cookies="JSESSIONID" invalidate-session="true" />
+ 
+    </http>
+ 
+    <authentication-manager>
+        <!-- authentication from database -->
+        <authentication-provider>
+            <jdbc-user-service data-source-ref="myDataSource"
+                users-by-username-query="select username,password, enabled from users where username=?"
+                authorities-by-username-query="Select username, user_role from user_roles where username=?" />
+        </authentication-provider> 
+    </authentication-manager> 
+</beans:beans>
