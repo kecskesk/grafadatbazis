@@ -89,6 +89,13 @@ public class GraphDAOImpl implements GraphDAO {
         });
     }
 
+    /**
+     * regex example:
+     * 2017_01_valami
+     * \d{4}_(\d{1,2})_(.*)
+     * @param searchContext
+     * @return
+     */
     @Override
     public List<Graph> find(SearchContext searchContext) {
         Graph graph = searchContext.getGraph();
@@ -100,7 +107,7 @@ public class GraphDAOImpl implements GraphDAO {
             conditions.add("name LIKE '" + graph.getName() + "%'");
         }
         if (graph.getDescriptor() != null) {
-            conditions.add("descriptor LIKE '" + graph.getDescriptor() + "%'");
+            conditions.add("descriptor REGEXP '" + graph.getDescriptor() + "'");
         }
 
         if (conditions.size() > 0) {

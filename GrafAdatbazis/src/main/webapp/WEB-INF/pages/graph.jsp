@@ -72,7 +72,10 @@
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h3 class="panel-title pull-left">Graph List</h3>
-					<a type="button" class="btn btn-default pull-right" href="graph/newGraph">New Graph</a>
+					<div class="pull-right">
+						<a type="button" class="btn btn-default" href="graph/newGraph">New Graph</a>
+						<a type="button" class="btn btn-default" style="" href="graph/upload">Upload File</a>
+					</div>
 					<div class="clearfix"></div>
 				</div>
 				<div class="panel-body">
