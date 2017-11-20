@@ -12,7 +12,9 @@ import hu.bme.szoftarch.graphdb.model.Paging;
 import hu.bme.szoftarch.graphdb.model.SearchContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.support.TransactionTemplate;
 
 /**
  * Implementation for the graph DAO.
@@ -29,7 +31,7 @@ public class GraphDAOImpl implements GraphDAO {
 
     @Autowired
     public GraphDAOImpl(DataSource dataSource) {
-        jdbcTemplate = new JdbcTemplate(dataSource);
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     private static Graph mapRowToGraph(ResultSet rs, int rowNum) throws SQLException {
