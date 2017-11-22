@@ -44,15 +44,18 @@
                         'Content-Type': 'application/json' 
                     },
                     success: function (data) {
-                        $("#parent").find("tr").each(function(){ 
-                        	$(this).hide() 
-                        });                        
+                        $("#parent").find("tr").each(function(index, element){
+                            if (element.id !== 'header') {
+                                $(this).hide();
+                            }
+                        });
                         var respContent = "";
                         data.forEach(function (entry, index) {
                             respContent += "<tr id='result'>";
                             respContent += "<td>" + (first + index + 1) + "</td>";
                             respContent += "<td>" + entry.name + "</td>";
                             respContent += "<td>" + entry.descriptor + "</td>";
+                            respContent += "</tr>";
                         });
                         $("#resultPanel").show();
                         $("#result").replaceWith(respContent);
@@ -111,9 +114,11 @@
                     <div class="panel-body">
                         <div class="table-responsive">
                             <table class="table" id="parent">
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Descriptor</th>
+                                <tr id="header">
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Descriptor</th>
+                                </tr>
                                 <tr id="result">
                                 
                                 </tr>

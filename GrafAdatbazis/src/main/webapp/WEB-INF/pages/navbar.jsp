@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/">Graph planner</a>
+      <a class="navbar-brand" href="/GrafAdatbazis">Graph planner</a>
     </div>
 
     <div class="container navbar-collapse">
