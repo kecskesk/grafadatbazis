@@ -16,6 +16,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Implementation for the user DAO.
@@ -34,33 +35,35 @@ public class UserDAOImpl implements UserDAO {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
+	@Transactional
 	@Override
 	public void saveOrUpdate(User user) {
 		if (user.getId() > 0) {
 			// update
 			String sql = "UPDATE users SET username=? , password=? WHERE id=?";
-			jdbcTemplate.update(sql, 
-                    user.getUsername(), 
+			jdbcTemplate.update(sql,
+                    user.getUsername(),
                     user.getPassword(),
                     user.getId());
 			if(user.getRoleText() != null) {
 				String r_sql = "UPDATE user_roles SET user_role=? WHERE username=?";
-				jdbcTemplate.update(r_sql, 
+				jdbcTemplate.update(r_sql,
 						user.getRoleText(),
 	                    user.getUsername());
+
 			}
-			
+
 		} else {
 			// insert
 			String sql = "INSERT INTO users (username, enabled, password) VALUES (?, 1, ?)";
 			jdbcTemplate.update(sql,
-                    user.getUsername(), 
+                    user.getUsername(),
                     user.getPassword());
 
 			if(user.getRoleText() != null) {
 				String r_sql = "INSERT INTO user_roles (username, user_role) VALUES (?, ?)";
 				jdbcTemplate.update(r_sql,
-	                    user.getUsername(), 
+	                    user.getUsername(),
 						user.getRoleText());
 			}
 		}		

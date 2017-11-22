@@ -12,7 +12,9 @@ import hu.bme.szoftarch.graphdb.model.Paging;
 import hu.bme.szoftarch.graphdb.model.SearchContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.support.TransactionTemplate;
 
 /**
  * Implementation for the graph DAO.
@@ -29,7 +31,7 @@ public class GraphDAOImpl implements GraphDAO {
 
     @Autowired
     public GraphDAOImpl(DataSource dataSource) {
-        jdbcTemplate = new JdbcTemplate(dataSource);
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     private static Graph mapRowToGraph(ResultSet rs, int rowNum) throws SQLException {
@@ -89,6 +91,13 @@ public class GraphDAOImpl implements GraphDAO {
         });
     }
 
+    /**
+     * regex example:
+     * 2017_01_valami
+     * \d{4}_(\d{1,2})_(.*)
+     * @param searchContext
+     * @return
+     */
     @Override
     public List<Graph> find(SearchContext searchContext) {
         Graph graph = searchContext.getGraph();
@@ -100,7 +109,7 @@ public class GraphDAOImpl implements GraphDAO {
             conditions.add("name LIKE '" + graph.getName() + "%'");
         }
         if (graph.getDescriptor() != null) {
-            conditions.add("descriptor LIKE '" + graph.getDescriptor() + "%'");
+            conditions.add("descriptor REGEXP '" + graph.getDescriptor() + "'");
         }
 
         if (conditions.size() > 0) {
