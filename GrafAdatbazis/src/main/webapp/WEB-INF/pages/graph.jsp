@@ -82,10 +82,8 @@
 					<div id="graphList" class="table-responsive">
 						<table class="table">
 							<th>#</th>
-							<th>Origin</th>
-							<th>Destination</th>
-							<th>Start time</th>
-							<th>End time</th>
+							<th>Name</th>
+							<th>Descriptor</th>
 							<th>Action</th>
 
 							<c:forEach var="graph" items="${listGraph}"
