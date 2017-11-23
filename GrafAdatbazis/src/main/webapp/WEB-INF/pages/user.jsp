@@ -38,11 +38,13 @@
                                         <td>
                                             <a type="button" class="btn btn-sm btn-default" href="user/editUser?id=${user.id}">Edit</a>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
-                                            <a type="button" class="btn btn-sm btn-danger" 
-                                               href="user/deleteUser?id=${user.id}"
-                                               onclick="return confirm('Are you sure you want to delete?')" >
-                                                Delete
-                                            </a>
+                                            <c:if test="${current != user.username}">
+                                                <a type="button" class="btn btn-sm btn-danger"
+                                                   href="user/deleteUser?id=${user.id}"
+                                                   onclick="return confirm('Are you sure you want to delete?')" >
+                                                    Delete
+                                                </a>
+                                            </c:if>
                                         </td>
                                     </tr>
                                 </c:forEach>

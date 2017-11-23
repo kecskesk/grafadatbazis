@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import hu.bme.szoftarch.graphdb.dao.UserDAO;
 import hu.bme.szoftarch.graphdb.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +31,8 @@ public class UserController {
 	public ModelAndView listUser(ModelAndView model) throws IOException{
 		List<User> listUser = userDAO.list();
 		model.addObject("listUser", listUser);
+		final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addObject("current", ((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername());
 		model.setViewName("user");
 		
 		return model;
