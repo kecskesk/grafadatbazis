@@ -1,6 +1,7 @@
 package hu.bme.szoftarch.graphdb.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,23 +44,24 @@ public class UserController {
 		User newUser = new User();
 		model.addObject("user", newUser);
 		model.addObject("isEdit", false);
+		roles(model);
 		model.setViewName("UserForm");
 		return model;
 	}
-	
+
 	@RequestMapping(value = "/user/saveUser", method = RequestMethod.POST)
 	public ModelAndView saveUser(@ModelAttribute User user) {
-		userDAO.saveOrUpdate(user);		
+		userDAO.saveOrUpdate(user);
 		return new ModelAndView("redirect:/user");
 	}
-	
+
 	@RequestMapping(value = "/user/deleteUser", method = RequestMethod.GET)
 	public ModelAndView deleteUser(HttpServletRequest request) {
 		int userId = Integer.parseInt(request.getParameter("id"));
 		userDAO.delete(userId);
 		return new ModelAndView("redirect:/user");
 	}
-	
+
 	@RequestMapping(value = "/user/editUser", method = RequestMethod.GET)
 	public ModelAndView editUser(HttpServletRequest request) {
 		int userId = Integer.parseInt(request.getParameter("id"));
@@ -67,7 +69,12 @@ public class UserController {
 		ModelAndView model = new ModelAndView("UserForm");
 		model.addObject("user", user);
 		model.addObject("isEdit", true);
-		
+		roles(model);
+
 		return model;
+	}
+
+	private static void roles(ModelAndView model) {
+		model.addObject("roles", Arrays.asList("ROLE_USER","ROLE_ADMIN"));
 	}
 }
