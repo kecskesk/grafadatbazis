@@ -84,6 +84,16 @@
     <body>
         <div id="wrap">
             <c:import url="navbar.jsp"/>
+            <!-- /login?error=true -->
+            <c:if test="${param.error != null}">
+                <div class="alert alert-danger">
+                    <strong>Oops! Something went wrong...</strong> There was an error of class: ${param.errorClass}
+                    <c:if test="${param.errorMessage != null}">
+                            with message: ${param.errorMessage}
+                    </c:if>
+                </div>
+            </c:if>
+
             <div class="container">
                 <div class="panel panel-primary" id="searchFields">
                     <div class="panel-heading">
