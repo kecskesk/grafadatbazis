@@ -38,6 +38,7 @@ public class UserController {
 	public ModelAndView newUser(ModelAndView model) {
 		User newUser = new User();
 		model.addObject("user", newUser);
+		model.addObject("isEdit", false);
 		model.setViewName("UserForm");
 		return model;
 	}
@@ -61,6 +62,7 @@ public class UserController {
 		User user = userDAO.get(userId);
 		ModelAndView model = new ModelAndView("UserForm");
 		model.addObject("user", user);
+		model.addObject("isEdit", true);
 		
 		return model;
 	}

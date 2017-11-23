@@ -40,9 +40,8 @@ public class UserDAOImpl implements UserDAO {
 	public void saveOrUpdate(User user) {
 		if (user.getId() > 0) {
 			// update
-			String sql = "UPDATE users SET username=? , password=? WHERE id=?";
+			String sql = "UPDATE users SET password=? WHERE id=?";
 			jdbcTemplate.update(sql,
-                    user.getUsername(),
                     user.getPassword(),
                     user.getId());
 			if(user.getRoleText() != null) {
