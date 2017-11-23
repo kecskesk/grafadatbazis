@@ -35,6 +35,7 @@ public class UserDAOImpl implements UserDAO {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
+	@Transactional
 	@Override
 	public void saveOrUpdate(User user) {
 		if (user.getId() > 0) {
