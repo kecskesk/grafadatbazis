@@ -26,17 +26,18 @@
                             <form:hidden path="id"/>
                             <div class="form-group">
                                 <label for="username">Username:</label>
-                                <form:input class="form-control" id="username" path="username" disabled="${isEdit}" />
+                                <form:input class="form-control" id="username" path="username" disabled="${isEdit}" required="true"/>
                             </div>
                             <div class="form-group">
                                 <label>Role:</label>
                                 <br/>
-                                <label class="radio-inline"><form:radiobutton path="roleText" value="ROLE_ADMIN" />ADMIN</label>
-                                <label class="radio-inline"><form:radiobutton path="roleText" value="ROLE_USER"/>USER</label> 
+                                <form:select path='roleText' required="true">
+                                    <form:options items="${roles}"/>
+                                </form:select>
                             </div>
                             <div class="form-group">
                                 <label>Password:</label>
-                                <form:input class="form-control" id="password" type="password" path="password" />
+                                <form:input class="form-control" id="password" type="password" path="password" required="true"/>
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-default" type="submit" >Save</button>

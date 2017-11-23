@@ -25,11 +25,11 @@
                             <form:hidden path="id"/>
                             <div class="form-group">
                                 <label for="name">Name:</label>
-                                <form:input class="form-control" id="name" path="name" />
+                                <form:input class="form-control" id="name" path="name" required="true"/>
                             </div>
                             <div class="form-group">
                                 <label for="descriptor">Descriptor:</label>
-                                <form:input class="form-control" id="descriptor" path="descriptor" />
+                                <form:input class="form-control" id="descriptor" path="descriptor" required="true"/>
                             </div>
                             <div>
                                 <button class="btn btn-default" type="submit">Save</button>

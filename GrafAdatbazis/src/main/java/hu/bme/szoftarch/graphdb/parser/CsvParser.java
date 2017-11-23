@@ -2,6 +2,8 @@ package hu.bme.szoftarch.graphdb.parser;
 
 import com.opencsv.CSVReader;
 import hu.bme.szoftarch.graphdb.model.Graph;
+import org.springframework.util.StringUtils;
+
 import java.io.File;
 
 import java.io.FileReader;
@@ -20,7 +22,7 @@ public final class CsvParser {
 
     public static Set<Graph> parse(Reader reader) throws IOException{
         CSVReader csvReader = null;
-        final Set<Graph> grahs = new HashSet<>();
+        final Set<Graph> graphs = new HashSet<>();
         try {
             csvReader = new CSVReader(reader);
             String[] line;
@@ -28,12 +30,18 @@ public final class CsvParser {
                 final Graph graph = new Graph();
                 graph.setName(line[0]);
                 graph.setDescriptor(line[1]);
-                grahs.add(graph);
+                if(isValid(graph)) {
+                    graphs.add(graph);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return grahs;
+        return graphs;
+    }
+
+    private static boolean isValid(Graph graph) {
+        return StringUtils.hasLength(graph.getName().trim()) && StringUtils.hasLength(graph.getDescriptor().trim());
     }
 }
