@@ -11,6 +11,7 @@ import hu.bme.szoftarch.graphdb.model.Graph;
 import hu.bme.szoftarch.graphdb.model.Paging;
 import hu.bme.szoftarch.graphdb.model.SearchContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Component;
@@ -57,11 +58,19 @@ public class GraphDAOImpl implements GraphDAO {
                     graph.getDescriptor(),
                     graph.getId());
         } else {
-            // insert
-            sql = "INSERT INTO graph (name, descriptor) VALUES (?, ?)";
-            jdbcTemplate.update(sql,
-                    graph.getName(),
-                    graph.getDescriptor());
+            try {
+                // insert
+                sql = "INSERT INTO graph (name, descriptor) VALUES (?, ?)";
+                jdbcTemplate.update(sql,
+                        graph.getName(),
+                        graph.getDescriptor());
+            } catch (DuplicateKeyException exception) {
+                // overwrite
+                sql = "UPDATE graph SET descriptor=? WHERE name=?";
+                jdbcTemplate.update(sql,
+                        graph.getDescriptor(),
+                        graph.getName());
+            }
         }
     }
 
